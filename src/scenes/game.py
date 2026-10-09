@@ -3,6 +3,7 @@ from ui import *
 from scene import Scene
 
 from utils.config import load_game, save_game
+from utils.image import scale_to_fit
 
 class Game(Scene):
     def __init__(self, manager):
@@ -21,10 +22,14 @@ class Game(Scene):
             self._manager.screen.get_height() // 2
         )
         self.__peter = pygame.Rect(self.__pos_peter, self.__size_peter)
+        self.__peter_img = pygame.image.load("assets/image/peter.png").convert_alpha()
+        self.__peter_img = scale_to_fit(self.__peter_img, (600, 7500))
 
         self.__pos_hand = (0, 0)
         self.__size_hand = (125, 300)
         self.__hand = pygame.Rect(self.__pos_hand, self.__size_hand)
+        self.__hand_img = pygame.image.load("assets/image/hand.png").convert_alpha()
+        self.__hand_img = scale_to_fit(self.__hand_img, self.__size_hand)
 
         self.__accumulated_score = 0.0
         self.__score = 0.0          
@@ -32,7 +37,7 @@ class Game(Scene):
         self.__hand_prev_y = None   
         self.__touching = False
 
-        self.__timeout = 600
+        self.__timeout = 291
 
         self.__SCORE_PER_LEVEL = 100
 
@@ -52,14 +57,14 @@ class Game(Scene):
         self.__data_game = load_game("data/savegame.json")
 
     def on_enter(self):
-        return super().on_enter()
+        pygame.mouse.set_visible(False)
 
     def on_exit(self):
-        return super().on_exit()
+        pygame.mouse.set_visible(True)
 
-    def __pause_game(self):
+    def __pause_game(self): 
         from ..app import _MainScene
-        
+
         self.__data_game["game"]["score"]["current"] = int(self.__accumulated_score)
         if self.__accumulated_score > self.__data_game["game"]["score"]["max"]:
             self.__data_game["game"]["score"]["max"] = int(self.__accumulated_score)
@@ -74,11 +79,7 @@ class Game(Scene):
 
     def __check_timeout(self):
         if self.__timeout <= 0:
-            self.__data_game["game"]["score"]["current"] = int(self.__accumulated_score)
-            if self.__accumulated_score > self.__data_game["game"]["score"]["max"]:
-                self.__data_game["game"]["score"]["max"] = int(self.__accumulated_score)
-
-            save_game("data/savegame.json", self.__data_game)
+            self.__pause_game()
 
     def __check_touch(self, dt):
         self.__touching = self.__peter.colliderect(self.__hand)
@@ -169,17 +170,18 @@ class Game(Scene):
         )).update() 
 
     def render(self):
-        pygame.draw.rect(
-            self._manager.screen,
-            "red",
-            self.__peter
+        # Peter
+        self._manager.screen.blit(
+            self.__peter_img,
+            (
+                self.__pos_peter[0] - self.__peter_img.get_size()[0] // 2 + 100,
+                self.__pos_peter[1] + 150
+            )
         )
 
-        pygame.draw.rect(
-            self._manager.screen,
-            "blue",
-            self.__hand
-        )
+        # Hand
+        hand_rect = self.__hand_img.get_rect(center=pygame.mouse.get_pos())
+        self._manager.screen.blit(self.__hand_img, hand_rect)
 
         self.__button_pause.update()
         self.__button_pause.press(StyleButton(

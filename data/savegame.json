@@ -1,0 +1,17 @@
+{
+    "player": {
+        "name": "",
+        "birthday": ""
+    },
+    "game": {
+        "score": {
+            "max": 0,
+            "current": 0
+        },
+        "achivements": {
+            "Master Lo Vuong": false,
+            "Lucky Luke": false,
+            "Durable and reliable": false
+        }
+    }
+}

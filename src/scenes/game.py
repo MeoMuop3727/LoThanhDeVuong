@@ -8,6 +8,11 @@ class Game(Scene):
     def __init__(self, manager):
         super().__init__(manager)
 
+        # Theme music
+        pygame.mixer.music.load("assets/audio/Bonnie Tyler - Holding Out For A Hero (Official HD Video).mp3")
+        pygame.mixer.music.set_volume(1.0)
+        pygame.mixer.music.play(loops=-1)
+
         self.__PADDING_TOP = 30
 
         self.__size_peter = (200, 2000)

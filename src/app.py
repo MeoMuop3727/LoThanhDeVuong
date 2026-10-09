@@ -7,16 +7,16 @@ from utils.config import load_game
 
 from .scenes import *
 
-# Theme music
-pygame.mixer.music.load("assets/audio/Aaron Smith - Dancin (KRONO Remix).mp3")
-pygame.mixer.music.set_volume(1.0)
-pygame.mixer.music.play(loops=-1, fade_ms=2000)
-
 FONT_GAME = "assets/font/Isometra-Regular.ttf"
 DATA_GAME = "data/savegame.json"
 class _MainScene(Scene):
     def __init__(self, manager):
         super().__init__(manager)
+
+        # Theme music
+        pygame.mixer.music.load("assets/audio/Aaron Smith - Dancin (KRONO Remix).mp3")
+        pygame.mixer.music.set_volume(1.0)
+        pygame.mixer.music.play(loops=-1)
 
         self.__screen = self._manager.screen
 
@@ -84,13 +84,13 @@ class _MainScene(Scene):
         return super().event(event)
 
     def __change_scene_game(self):
+        pygame.mixer.music.pause()
+
         click = pygame.mixer.Sound("assets/audio/an_ba_to_com_ban_goc-www_tiengdong_com.mp3")
         click.set_volume(1.0)
-        pygame.mixer.music.set_volume(0.4)
-        click.play(fade_ms=1000)
+        click.play()
 
         self._manager.replace_scene(Loadding(self._manager))
-        pygame.mixer.music.set_volume(1.0)
 
     def render(self):
         # Caption
@@ -143,9 +143,9 @@ class _MainScene(Scene):
 
 def App():
     manager = ManagerScene(
-        size=(720, 1280)
+        size=(720, 1280),
+        caption="LoThanhDeVuong Game"
     )
-    main_scene = _MainScene(manager)
-    manager.push_scene(main_scene)
+    manager.push_scene(Intro(manager))
     manager.run_game()
     

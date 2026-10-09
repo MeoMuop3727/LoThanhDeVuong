@@ -2,6 +2,8 @@ import pygame
 from ui import *
 from scene import Scene
 
+from utils.config import load_game, save_game
+
 class Game(Scene):
     def __init__(self, manager):
         super().__init__(manager)
@@ -19,6 +21,7 @@ class Game(Scene):
         self.__size_hand = (125, 300)
         self.__hand = pygame.Rect(self.__pos_hand, self.__size_hand)
 
+        self.__accumulated_score = 0.0
         self.__score = 0.0          
         self.__level = 1
         self.__hand_prev_y = None   
@@ -41,15 +44,36 @@ class Game(Scene):
             font=pygame.Font("assets/font/Isometra-Regular.ttf", 25)
         ))
 
+        self.__data_game = load_game("data/savegame.json")
+
     def on_enter(self):
         return super().on_enter()
 
     def on_exit(self):
         return super().on_exit()
 
+    def __pause_game(self):
+        from ..app import _MainScene
+        
+        self.__data_game["game"]["score"]["current"] = int(self.__accumulated_score)
+        if self.__accumulated_score > self.__data_game["game"]["score"]["max"]:
+            self.__data_game["game"]["score"]["max"] = int(self.__accumulated_score)
+
+        save_game("data/savegame.json", self.__data_game)
+
+        self._manager.replace_scene(_MainScene(self._manager))
+
     def __score_needed(self, level: int) -> float:
         # Score for next level
         return self.__SCORE_PER_LEVEL * (level - 1)
+
+    def __check_timeout(self):
+        if self.__timeout <= 0:
+            self.__data_game["game"]["score"]["current"] = int(self.__accumulated_score)
+            if self.__accumulated_score > self.__data_game["game"]["score"]["max"]:
+                self.__data_game["game"]["score"]["max"] = int(self.__accumulated_score)
+
+            save_game("data/savegame.json", self.__data_game)
 
     def __check_touch(self, dt):
         self.__touching = self.__peter.colliderect(self.__hand)
@@ -61,6 +85,9 @@ class Game(Scene):
             if self.__hand_prev_y is not None:
                 delta = abs(current_y - self.__hand_prev_y)
                 self.__score += delta * self.__score_multiplier()
+
+                if delta == 0:
+                    self.__score -= dt * (self.__level // 2)
 
             self.__hand_prev_y = current_y
         else:
@@ -85,6 +112,7 @@ class Game(Scene):
     def update(self, dt):
         FONT = pygame.Font("assets/font/Isometra-Regular.ttf", 30)
 
+        self.__check_timeout()
         self.__check_touch(dt)
 
         mouse_pos = pygame.mouse.get_pos()
@@ -121,6 +149,7 @@ class Game(Scene):
 
         if self.__score > score_need:
             self.__level += 1
+            self.__accumulated_score += self.__score
             self.__score = 0.0
 
         # Score
@@ -152,4 +181,4 @@ class Game(Scene):
             size=self.__size_button_pause,
             pos=self.__pos_button_pause,
             border_radius=15
-        ), func=lambda: self._manager.pop_scene())
+        ), func=lambda: self.__pause_game())

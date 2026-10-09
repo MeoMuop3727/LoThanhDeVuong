@@ -3,7 +3,7 @@ from copy import copy
 from typing import Optional, Callable
 from dataclasses import dataclass
 
-@dataclass
+@dataclass(slots=True)
 class StyleButton:
     size: tuple[int, int] = (100, 50)
     pos: tuple[int, int] = (0, 0)

@@ -1,5 +1,10 @@
+from __future__ import annotations
+
 import pygame
-from typing import Optional
+from typing import Optional, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .scene import Scene
 
 class ManagerScene:
     def __init__(self,
@@ -9,7 +14,8 @@ class ManagerScene:
         
         self.__screen = pygame.display.set_mode(size, pygame.SRCALPHA)
         pygame.display.set_caption(caption)
-        pygame.display.set_icon(pygame.image.load(icon))
+        if icon:
+            pygame.display.set_icon(pygame.image.load(icon))
 
         # Game configs
         self.running = True
@@ -19,6 +25,10 @@ class ManagerScene:
 
         # STACK scenes
         self.__scenes: list["Scene"] = []
+
+    @property
+    def screen(self) -> pygame.Surface:
+        return self.__screen
     
     def push_scene(self, scene: "Scene"):
         self.__scenes.append(scene)
@@ -48,6 +58,7 @@ class ManagerScene:
                 if event.type == pygame.QUIT:
                     self.running = False
 
+            current_scene.render()
             current_scene.update(dt)
 
             pygame.display.flip()

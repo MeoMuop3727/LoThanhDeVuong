@@ -50,7 +50,7 @@ class ManagerScene:
 
             dt = self.__clock.tick(self.fps) / 1e3
 
-            current_scene = self.__scenes[0] if self.__scenes else None
+            current_scene = self.__scenes[-1] if self.__scenes else None
 
             if current_scene is None: continue
 

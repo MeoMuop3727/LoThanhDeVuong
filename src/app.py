@@ -2,6 +2,8 @@ import pygame
 from ui import *
 from scene import Scene, ManagerScene
 
+from .scenes import *
+
 FONT_GAME = "assets/font/Isometra-Regular.ttf"
 class _MainScene(Scene):
     def __init__(self, manager):
@@ -51,7 +53,8 @@ class _MainScene(Scene):
                 text="LamQuaLo",
                 font=pygame.Font(FONT_GAME, 35),
                 text_color="#f0f0f0"
-            )
+            ),
+            func=lambda: self._manager.push_scene(Game(self._manager))
         )
 
         self.__button_settings.update()

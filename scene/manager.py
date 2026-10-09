@@ -11,6 +11,8 @@ class ManagerScene:
                  size: tuple[int, int] = (1280, 920),
                  caption: str = "My Game - Debugger",
                  icon: Optional[str] = None):
+
+        pygame.init()
         
         self.__screen = pygame.display.set_mode(size, pygame.SRCALPHA)
         pygame.display.set_caption(caption)

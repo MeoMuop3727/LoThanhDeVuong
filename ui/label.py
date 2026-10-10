@@ -6,16 +6,16 @@ from copy import copy
 @dataclass(slots=True)
 class StyleLabel:
     content: str = ""
-    text_color: pygame.Color = "#000000"
-    font: Optional[pygame.Font] = None
+    text_color: pygame.color.Color = "#000000"
+    font: Optional[pygame.font.Font] = None
 
     size: tuple[int, int] = (100, 100)
     pos: tuple[int, int] = (0, 0)
 
-    bg_color: pygame.Color = "#f0f0f0"
+    bg_color: pygame.color.Color = "#f0f0f0"
 
     border: int = 0
-    border_color: pygame.Color = "#000000"
+    border_color: pygame.color.Color = "#000000"
     border_radius: int = 0
 
 class Label:
@@ -55,15 +55,15 @@ class Label:
         self.__drawing_background(self.__style_modified.bg_color)
         self.__drawing_text(self.__style_modified.text_color, self.__style_modified.content)
 
-    def __drawing_border(self, color: pygame.Color):
+    def __drawing_border(self, color: pygame.color.Color):
         if self.__style_modified.border < 0: return
 
         pygame.draw.rect(self.__surf, color, self.__border, 0, self.__style_modified.border_radius)
 
-    def __drawing_background(self, color: pygame.Color):
+    def __drawing_background(self, color: pygame.color.Color):
         pygame.draw.rect(self.__surf, color, self.__background, 0, self.__style_modified.border_radius)
 
-    def __drawing_text(self, color: pygame.Color, text: str):
+    def __drawing_text(self, color: pygame.color.Color, text: str):
         if not self.__style_modified.font: return
 
         text_surf = self.__style_modified.font.render(text, True, color)

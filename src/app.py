@@ -23,7 +23,7 @@ class _MainScene(Scene):
 
         self.__caption_game = Label(self.__screen, StyleLabel(
             content="LoThanhDeVuong",
-            font=pygame.Font(FONT_GAME, 45),
+            font=pygame.font.Font(FONT_GAME, 45),
             size=(0,0),
             pos=(self.__screen.get_width() // 2, 70)
         ))
@@ -33,13 +33,13 @@ class _MainScene(Scene):
             size=self.__size_button,
             pos=(self.__screen.get_width() // 2 - self.__size_button[0] // 2, 550),
             text="LamQuaLo",
-            font=pygame.Font(FONT_GAME, 35)
+            font=pygame.font.Font(FONT_GAME, 35)
         ))
         self.__button_settings = Button(self.__screen, StyleButton(
             size=self.__size_button,
             pos=(self.__screen.get_width() // 2 - self.__size_button[0] // 2, 550 + self.__size_button[1] + 20),
             text="Setting",
-            font=pygame.Font(FONT_GAME, 35)
+            font=pygame.font.Font(FONT_GAME, 35)
         ))
 
         self.__data_game = load_game(DATA_GAME)
@@ -47,7 +47,7 @@ class _MainScene(Scene):
         self.__highest_score = Label(self.__screen, StyleLabel(
             content=f"Highest Score: {self.__data_game["game"]["score"]["max"]}",
             size=(0, 0),
-            font=pygame.Font(FONT_GAME, 30),
+            font=pygame.font.Font(FONT_GAME, 30),
             pos=(
                 self.__screen.width // 2,
                 250
@@ -57,7 +57,7 @@ class _MainScene(Scene):
         self.__current_score = Label(self.__screen, StyleLabel(
             content=f"Current Score: {self.__data_game["game"]["score"]["current"]}",
             size=(0, 0),
-            font=pygame.Font(FONT_GAME, 30),
+            font=pygame.font.Font(FONT_GAME, 30),
             pos=(
                 self.__screen.width // 2,
                 335
@@ -106,7 +106,7 @@ class _MainScene(Scene):
         for idx, poem in enumerate(self.__POEMS):
             Label(self.__screen, StyleLabel(
                 content=poem,
-                font=pygame.Font(FONT_GAME, 20),
+                font=pygame.font.Font(FONT_GAME, 20),
                 size=(0,0),
                 pos=(
                     self.__screen.width // 2,
@@ -121,7 +121,7 @@ class _MainScene(Scene):
                 size=self.__size_button,
                 pos=(self.__screen.get_width() // 2 - self.__size_button[0] // 2, 700),
                 text="LamQuaLo",
-                font=pygame.Font(FONT_GAME, 35),
+                font=pygame.font.Font(FONT_GAME, 35),
                 text_color="#f0f0f0"
             ),
             func=lambda: self.__change_scene_game()
@@ -134,7 +134,7 @@ class _MainScene(Scene):
                 size=self.__size_button,
                 pos=(self.__screen.get_width() // 2 - self.__size_button[0] // 2, 700),
                 text="Setting",
-                font=pygame.Font(FONT_GAME, 35),
+                font=pygame.font.Font(FONT_GAME, 35),
                 text_color="#f0f0f0"
             ),
             lambda: self._manager.push_scene(Setting(self._manager))

@@ -33,7 +33,7 @@ class Loadding(Scene):
 
         Label(self._manager.screen, StyleLabel(
             content=self.__load_text,
-            font=pygame.Font(resource_path("assets/font/Isometra-Regular.ttf"), 30),
+            font=pygame.font.Font(resource_path("assets/font/Isometra-Regular.ttf"), 30),
             pos=(
                 self._manager.screen.width - 115,
                 self._manager.screen.height - 50

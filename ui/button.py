@@ -9,14 +9,14 @@ class StyleButton:
     pos: tuple[int, int] = (0, 0)
 
     text: str = "click"
-    font: Optional[pygame.Font] = None
-    text_color: pygame.Color = "#000000"
+    font: Optional[pygame.font.Font] = None
+    text_color: pygame.color.Color = "#000000"
 
-    bg_color: pygame.Color = "#f0f0f0"
+    bg_color: pygame.color.Color = "#f0f0f0"
 
     border: int = 0
     border_radius: int = 10
-    border_color: pygame.Color = "#111111"
+    border_color: pygame.color.Color = "#111111"
 
 class Button:
     def __init__(self,
@@ -96,15 +96,15 @@ class Button:
             self.__pressed = False 
             self.__style_modified = copy(self.__style_original)
 
-    def __drawing_border(self, color: pygame.Color):
+    def __drawing_border(self, color: pygame.color.Color):
         if self.__style_modified.border < 0: return
 
         pygame.draw.rect(self.__surf, color, self.__border, 0, self.__style_modified.border_radius)
 
-    def __drawing_background(self, color: pygame.Color):
+    def __drawing_background(self, color: pygame.color.Color):
         pygame.draw.rect(self.__surf, color, self.__background, 0, self.__style_modified.border_radius)
 
-    def __drawing_text(self, color: pygame.Color, text: str):
+    def __drawing_text(self, color: pygame.color.Color, text: str):
         if not self.__style_modified.font: return
 
         text_surf = self.__style_modified.font.render(text, True, color)

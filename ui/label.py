@@ -46,6 +46,10 @@ class Label:
         )
         self.__border = pygame.Rect(pos_border, size_border)
 
+    @property
+    def content(self) -> str:
+        return self.__style_modified.content
+
     def update(self):
         self.__drawing_border(self.__style_modified.border_color)
         self.__drawing_background(self.__style_modified.bg_color)

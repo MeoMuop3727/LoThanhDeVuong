@@ -136,7 +136,8 @@ class _MainScene(Scene):
                 text="Setting",
                 font=pygame.Font(FONT_GAME, 35),
                 text_color="#f0f0f0"
-            )
+            ),
+            lambda: self._manager.push_scene(Setting(self._manager))
         )
 
     def update(self, dt):
@@ -145,7 +146,8 @@ class _MainScene(Scene):
 def App():
     manager = ManagerScene(
         size=(720, 1280),
-        caption="LoThanhDeVuong Game"
+        caption="LoThanhDeVuong Game",
+        icon="assets/image/peter.png"
     )
     manager.push_scene(Intro(manager))
     manager.run_game()

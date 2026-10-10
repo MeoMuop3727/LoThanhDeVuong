@@ -34,7 +34,7 @@ class Intro(Scene):
             text_color="#ffffff"
         ))
 
-        self.__version = "v1.4.0"
+        self.__version = "v1.5.0"
         self.__label_version = Label(self._manager.screen, StyleLabel(
             content=self.__version,
             size=(0, 0),

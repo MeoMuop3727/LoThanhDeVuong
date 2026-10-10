@@ -17,13 +17,16 @@ class Game(Scene):
 
         self.__PADDING_TOP = 30
 
-        self.__size_peter = (200, 2000)
+        self.__size_peter = (200, 7500)
         self.__pos_peter = (
             self._manager.screen.get_width() // 2 - self.__size_peter[0] // 2,
-            self._manager.screen.get_height() // 2
+            self._manager.screen.get_height() // 2 
         )
-        self.__peter = pygame.Rect(self.__pos_peter, self.__size_peter)
         self.__peter_img = pygame.image.load(resource_path("assets/image/peter.png")).convert_alpha()
+        self.__peter = pygame.Rect((
+            self.__pos_peter[0],
+            self.__pos_peter[1] + 220
+        ), self.__size_peter)
         self.__peter_img = scale_to_fit(self.__peter_img, (600, 7500))
 
         self.__pos_hand = (0, 0)
@@ -172,6 +175,7 @@ class Game(Scene):
 
     def render(self):
         # Peter
+        # pygame.draw.rect(self._manager.screen, "red", self.__peter)
         self._manager.screen.blit(
             self.__peter_img,
             (

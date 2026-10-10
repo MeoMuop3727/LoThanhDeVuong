@@ -1,0 +1,68 @@
+
+name: LoThanhDeVuong Game
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        shell: pwsh
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip install pyinstaller
+
+      - name: Clean previous build files
+        shell: pwsh
+        run: |
+          Remove-Item release, temp-game -Recurse -Force -ErrorAction SilentlyContinue
+          New-Item -ItemType Directory -Path release, temp-game -Force | Out-Null
+
+      - name: Build Windows executable
+        shell: pwsh
+        run: |
+          python -m PyInstaller `
+            --noconfirm `
+            --clean `
+            --onedir `
+            --name Game `
+            --distpath release `
+            --workpath temp-game/build `
+            --specpath temp-game `
+            --add-data "assets;assets" `
+            --add-data "data;data" `
+            main.py
+
+      - name: Package game as ZIP
+        shell: pwsh
+        run: |
+          Compress-Archive `
+            -Path release/Game `
+            -DestinationPath release/Game-Windows.zip `
+            -Force
+
+      - name: Upload Windows game
+        uses: actions/upload-artifact@v4
+        with:
+          name: Game-Windows
+          path: release/Game-Windows.zip
+          if-no-files-found: error
+          retention-days: 14

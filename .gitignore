@@ -218,3 +218,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Game
+release/
+temp-game/
+data/
+*.spec
+*.exe

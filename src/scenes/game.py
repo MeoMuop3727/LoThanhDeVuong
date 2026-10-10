@@ -55,7 +55,7 @@ class Game(Scene):
             pos=self.__pos_button_pause,
             text="P",
             border_radius=15,
-            font=pygame.Font(resource_path("assets/font/Isometra-Regular.ttf"), 25)
+            font=pygame.font.Font(resource_path("assets/font/Isometra-Regular.ttf"), 25)
         ))
 
         self.__data_game = load_game(save_path("data/savegame.json"))
@@ -120,7 +120,7 @@ class Game(Scene):
         return super().event(event)
 
     def update(self, dt):
-        FONT = pygame.Font(resource_path("assets/font/Isometra-Regular.ttf"), 30)
+        FONT = pygame.font.Font(resource_path("assets/font/Isometra-Regular.ttf"), 30)
 
         self.__check_timeout()
         self.__check_touch(dt)

@@ -46,7 +46,7 @@ jobs:
             --name Game `
             --distpath release `
             --workpath temp-game/build `
-            --specpath temp-game `
+            --specpath . `
             --add-data "assets;assets" `
             --add-data "data;data" `
             main.py

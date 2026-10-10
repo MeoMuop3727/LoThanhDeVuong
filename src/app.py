@@ -147,7 +147,7 @@ def App():
     manager = ManagerScene(
         size=(720, 1280),
         caption="LoThanhDeVuong Game",
-        icon="assets/image/peter.png"
+        icon=resource_path("assets/image/peter.png")
     )
     manager.push_scene(Intro(manager))
     manager.run_game()

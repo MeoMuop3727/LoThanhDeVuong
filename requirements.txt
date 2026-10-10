@@ -8,8 +8,6 @@ defusedxml==0.7.1
 numpy==2.4.6
 opencv-python==4.13.0.92
 packaging==26.3
-# Editable install with no version control (pgui==0.1.0)
--e /home/khoi/workspace/the-life/libs/pgui
 pillow==12.3.0
 pycparser==3.0
 pygame==2.6.1

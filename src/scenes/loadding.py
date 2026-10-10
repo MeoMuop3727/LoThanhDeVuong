@@ -3,6 +3,8 @@ from scene import Scene
 from .game import Game
 from ui import Label, StyleLabel
 
+from utils.paths import *
+
 class Loadding(Scene):
     def __init__(self, manager):
         super().__init__(manager)
@@ -31,7 +33,7 @@ class Loadding(Scene):
 
         Label(self._manager.screen, StyleLabel(
             content=self.__load_text,
-            font=pygame.Font("assets/font/Isometra-Regular.ttf", 30),
+            font=pygame.Font(resource_path("assets/font/Isometra-Regular.ttf"), 30),
             pos=(
                 self._manager.screen.width - 115,
                 self._manager.screen.height - 50

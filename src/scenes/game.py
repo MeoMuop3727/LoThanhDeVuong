@@ -4,13 +4,14 @@ from scene import Scene
 
 from utils.config import load_game, save_game
 from utils.image import scale_to_fit
+from utils.paths import *
 
 class Game(Scene):
     def __init__(self, manager):
         super().__init__(manager)
 
         # Theme music
-        pygame.mixer.music.load("assets/audio/Bonnie Tyler - Holding Out For A Hero (Official HD Video).mp3")
+        pygame.mixer.music.load(resource_path("assets/audio/Bonnie Tyler - Holding Out For A Hero (Official HD Video).mp3"))
         pygame.mixer.music.set_volume(1.0)
         pygame.mixer.music.play(loops=-1)
 
@@ -22,13 +23,13 @@ class Game(Scene):
             self._manager.screen.get_height() // 2
         )
         self.__peter = pygame.Rect(self.__pos_peter, self.__size_peter)
-        self.__peter_img = pygame.image.load("assets/image/peter.png").convert_alpha()
+        self.__peter_img = pygame.image.load(resource_path("assets/image/peter.png")).convert_alpha()
         self.__peter_img = scale_to_fit(self.__peter_img, (600, 7500))
 
         self.__pos_hand = (0, 0)
         self.__size_hand = (125, 300)
         self.__hand = pygame.Rect(self.__pos_hand, self.__size_hand)
-        self.__hand_img = pygame.image.load("assets/image/hand.png").convert_alpha()
+        self.__hand_img = pygame.image.load(resource_path("assets/image/hand.png")).convert_alpha()
         self.__hand_img = scale_to_fit(self.__hand_img, self.__size_hand)
 
         self.__accumulated_score = 0.0
@@ -51,10 +52,10 @@ class Game(Scene):
             pos=self.__pos_button_pause,
             text="P",
             border_radius=15,
-            font=pygame.Font("assets/font/Isometra-Regular.ttf", 25)
+            font=pygame.Font(resource_path("assets/font/Isometra-Regular.ttf"), 25)
         ))
 
-        self.__data_game = load_game("data/savegame.json")
+        self.__data_game = load_game(save_path("data/savegame.json"))
 
     def on_enter(self):
         pygame.mouse.set_visible(False)
@@ -69,7 +70,7 @@ class Game(Scene):
         if self.__accumulated_score > self.__data_game["game"]["score"]["max"]:
             self.__data_game["game"]["score"]["max"] = int(self.__accumulated_score)
 
-        save_game("data/savegame.json", self.__data_game)
+        save_game(save_path("data/savegame.json"), self.__data_game)
 
         self._manager.replace_scene(_MainScene(self._manager))
 
@@ -116,7 +117,7 @@ class Game(Scene):
         return super().event(event)
 
     def update(self, dt):
-        FONT = pygame.Font("assets/font/Isometra-Regular.ttf", 30)
+        FONT = pygame.Font(resource_path("assets/font/Isometra-Regular.ttf"), 30)
 
         self.__check_timeout()
         self.__check_touch(dt)

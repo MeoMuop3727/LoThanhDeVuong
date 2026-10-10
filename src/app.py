@@ -4,17 +4,18 @@ from pyvidplayer2 import Video
 from ui import *
 from scene import Scene, ManagerScene
 from utils.config import load_game
+from utils.paths import *
 
 from .scenes import *
 
-FONT_GAME = "assets/font/Isometra-Regular.ttf"
-DATA_GAME = "data/savegame.json"
+FONT_GAME = resource_path("assets/font/Isometra-Regular.ttf")
+DATA_GAME = save_path("data/savegame.json")
 class _MainScene(Scene):
     def __init__(self, manager):
         super().__init__(manager)
 
         # Theme music
-        pygame.mixer.music.load("assets/audio/Aaron Smith - Dancin (KRONO Remix).mp3")
+        pygame.mixer.music.load(resource_path("assets/audio/Aaron Smith - Dancin (KRONO Remix).mp3"))
         pygame.mixer.music.set_volume(1.0)
         pygame.mixer.music.play(loops=-1)
 
@@ -86,7 +87,7 @@ class _MainScene(Scene):
     def __change_scene_game(self):
         pygame.mixer.music.pause()
 
-        click = pygame.mixer.Sound("assets/audio/an_ba_to_com_ban_goc-www_tiengdong_com.mp3")
+        click = pygame.mixer.Sound(resource_path("assets/audio/an_ba_to_com_ban_goc-www_tiengdong_com.mp3"))
         click.set_volume(1.0)
         click.play()
 

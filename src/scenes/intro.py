@@ -2,6 +2,7 @@ import pygame
 from scene import Scene
 from ui import Label, StyleLabel
 
+from utils.paths import *
 class Intro(Scene):
     def __init__(self, manager):
         super().__init__(manager)
@@ -17,7 +18,7 @@ class Intro(Scene):
                 self._manager.screen.width // 2 - 205,
                 self._manager.screen.height // 2 - 50
             ),
-            font=pygame.Font("assets/font/Isometra-Regular.ttf", 25),
+            font=pygame.Font(resource_path("assets/font/Isometra-Regular.ttf"), 25),
             text_color="#ffffff"
         ))
 
@@ -29,7 +30,7 @@ class Intro(Scene):
                 self._manager.screen.width // 2,
                 self._manager.screen.height // 2
             ),
-            font=pygame.Font("assets/font/Isometra-Regular.ttf", 55),
+            font=pygame.Font(resource_path("assets/font/Isometra-Regular.ttf"), 55),
             text_color="#ffffff"
         ))
 
@@ -41,7 +42,7 @@ class Intro(Scene):
                 self._manager.screen.width - 45,
                 self._manager.screen.height - 20
             ),
-            font=pygame.Font("assets/font/Isometra-Regular.ttf", 15),
+            font=pygame.Font(resource_path("assets/font/Isometra-Regular.ttf"), 15),
             text_color="#ffffff"
         ))
 

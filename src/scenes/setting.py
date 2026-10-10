@@ -106,7 +106,7 @@ class Setting(Scene):
             text="X",
             border_radius=10,
             pos=(10,10),
-            font=pygame.Font(None, 35)
+            font=pygame.font.Font(None, 35)
         ))
 
         self.__buttons = {
@@ -177,7 +177,7 @@ class Setting(Scene):
             self.__list_buttons.append(Button(self._manager.screen, StyleButton(
                 size=size_button,
                 text=f"{key[0]}",
-                font=pygame.Font(FONT_GAME, 35),
+                font=pygame.font.Font(FONT_GAME, 35),
                 border_radius=15,
                 pos=(
                     10,
@@ -187,7 +187,7 @@ class Setting(Scene):
 
             self.__list_labels.append(Label(self._manager.screen, StyleLabel(
                 content=key,
-                font=pygame.Font(FONT_GAME, 25),
+                font=pygame.font.Font(FONT_GAME, 25),
                 size=(0,0),
                 pos=(
                     120 + size_button[0] + GAP,
